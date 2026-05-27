@@ -8,14 +8,21 @@ from django.contrib.auth import get_user_model
 
 User = get_user_model()
 
-# Badilisha hapa uweke Username na Password unazotaka wewe!
-username = "admin"
-email = "admin@eemc.com"
-password = "MollelPassword2026!"  # Weka password yako ya siri hapa
+# Weka Username mpya kabisa na Password ngumu hapa kiongozi!
+username = "elishauser"
+email = "mwanachama@gmail.com"
+password_ya_chuma = "Users@EEMCAPP2026!"  # Lazima iwe ndefu na yenye nguvu hivi!
 
 if not User.objects.filter(username=username).exists():
     print("Inatengeneza akaunti ya Admin...")
-    User.objects.create_superuser(username=username, email=email, password=password)
-    print("Admin ametengenezwa kinyamani kabisa!")
+    # Tunaunda user wa kawaida kwanza
+    user = User.objects.create_user(username=username, email=email)
+    # Tunamlazimisha kuwa Superuser na Staff
+    user.is_superuser = True
+    user.is_staff = True
+    # Hapa ndio tunasimba password kinyamani ili Django iitambue!
+    user.set_password(password_ya_chuma)
+    user.save()
+    print("Admin ametengenezwa na kusimbwa kwa usalama wa 100%!")
 else:
-    print("Admin tayari yupo kwenye database!")
+    print("Admin huyu tayari yupo! Tafadhali badilisha 'username' juu uweke nyingine ili itengeneze mpya.")
