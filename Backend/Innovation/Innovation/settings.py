@@ -118,6 +118,7 @@ WSGI_APPLICATION = 'Innovation.wsgi.application'
 
 
 
+# Baada ya STORAGES dictionary yako
 STORAGES = {
     "default": {
         "BACKEND": "cloudinary_storage.storage.MediaCloudinaryStorage",
@@ -127,6 +128,8 @@ STORAGES = {
     },
 }
 
+# Ongeza hii chini – inaenda pamoja na Whitenoise
+STATICFILES_STORAGE = "whitenoise.storage.CompressedStaticFilesStorage"
 
 
 
@@ -204,6 +207,8 @@ DISABLE_COLLECTSTATIC = 1
 
 # MEDIA_URL = '/media/'
 # MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+
 
 
 STATIC_ROOT = BASE_DIR / "staticfiles"
