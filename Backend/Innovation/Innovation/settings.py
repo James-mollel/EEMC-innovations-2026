@@ -13,16 +13,30 @@ https://docs.djangoproject.com/en/6.0/ref/settings/
 from pathlib import Path
 import os
 from dotenv import load_dotenv
+import cloudinary
+
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 load_dotenv(os.path.join(BASE_DIR, '.env'))
 
 
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/6.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
+
+
+cloudinary.config(
+    cloud_name=os.getenv('CLOUDINARY_CLOUD_NAME'),
+    api_key=os.getenv('CLOUDINARY_API_KEY'),
+    api_secret=os.getenv('CLOUDINARY_API_SECRET'),
+    secure=True  
+)
+
+
 SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
@@ -82,6 +96,7 @@ CLOUDINARY_STORAGE = {
 
 
 
+
 ROOT_URLCONF = 'Innovation.urls'
 
 TEMPLATES = [
@@ -102,9 +117,7 @@ TEMPLATES = [
 WSGI_APPLICATION = 'Innovation.wsgi.application'
 
 
-# Futa mstari wa zamani wa DEFAULT_FILE_STORAGE na uweke huu hapa chini:
 
-# 1. Mfumo wa hifadhi ya Django 6.0 (Static = WhiteNoise, Media = Cloudinary)
 STORAGES = {
     "default": {
         "BACKEND": "cloudinary_storage.storage.MediaCloudinaryStorage",
@@ -114,9 +127,7 @@ STORAGES = {
     },
 }
 
-# 2. Hifadhi ya ziada kwa ajili ya kululiza maktaba za kizamani zisifeli
-STATICFILES_STORAGE = "whitenoise.storage.CompressedStaticFilesStorage"
-DEFAULT_FILE_STORAGE = "cloudinary_storage.storage.MediaCloudinaryStorage"
+
 
 
 
@@ -189,9 +200,10 @@ STATIC_URL = "/static/"
 
 
 
+DISABLE_COLLECTSTATIC = 1
 
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+# MEDIA_URL = '/media/'
+# MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 
 STATIC_ROOT = BASE_DIR / "staticfiles"
