@@ -104,6 +104,7 @@ WSGI_APPLICATION = 'Innovation.wsgi.application'
 
 # Futa mstari wa zamani wa DEFAULT_FILE_STORAGE na uweke huu hapa chini:
 
+# 1. Mfumo wa hifadhi ya Django 6.0 (Static = WhiteNoise, Media = Cloudinary)
 STORAGES = {
     "default": {
         "BACKEND": "cloudinary_storage.storage.MediaCloudinaryStorage",
@@ -113,8 +114,9 @@ STORAGES = {
     },
 }
 
-
+# 2. Hifadhi ya ziada kwa ajili ya kululiza maktaba za kizamani zisifeli
 STATICFILES_STORAGE = "whitenoise.storage.CompressedStaticFilesStorage"
+DEFAULT_FILE_STORAGE = "cloudinary_storage.storage.MediaCloudinaryStorage"
 
 
 
