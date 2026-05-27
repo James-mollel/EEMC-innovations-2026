@@ -25,9 +25,9 @@ def generate_eemc_qr(app_url, output_filename="eemc_competition_qr.png"):
     logo_box = Image.new("RGB", (logo_size, logo_size), "white")
     draw = ImageDraw.Draw(logo_box)
     
-    # Jaribu kutafuta font nzuri ya ki-bold, isipopatikana itatumia font ya mfumo
+    
     try:
-        # Unaweza kuweka font yoyote ya bold iliyopo kwenye kompyuta yako (e.g., Arial, Helvetica)
+        
         font = ImageFont.truetype("arialbd.ttf", int(logo_size * 0.4))
     except IOError:
         font = ImageFont.load_default()
@@ -35,8 +35,6 @@ def generate_eemc_qr(app_url, output_filename="eemc_competition_qr.png"):
     # Maandishi ya kuandika
     text = "EEMC"
     
-    # Kokotoa nafasi ili herufi zikae katikati kabisa ya kibox cheupe
-    # Kwa kutumia bbox kupata vipimo sahihi vya maandishi
     text_bbox = draw.textbbox((0, 0), text, font=font)
     text_width = text_bbox[2] - text_bbox[0]
     text_height = text_bbox[3] - text_bbox[1]
@@ -58,5 +56,5 @@ def generate_eemc_qr(app_url, output_filename="eemc_competition_qr.png"):
 
 # --- MATUMIZI ---
 # Weka link halisi ya mfumo wako hapa (mfano link ya Vercel, NetPoa, au IP ya chuo)
-APP_LINK = "https://eemc-udom.kazibase.co.tz" 
+APP_LINK = "https://eemc-innovations-2026.vercel.app" 
 generate_eemc_qr(APP_LINK)
