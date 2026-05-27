@@ -31,7 +31,7 @@ DEBUG = os.getenv('DEBUG', 'True') == 'True'
 ALLOWED_HOSTS = [
     "127.0.0.1",
     "localhost",
-    ".render.com"
+    "eemc-innovations-2026-production.up.railway.app",
 ]
 
 
