@@ -1,0 +1,15 @@
+# Python Environment
+venv/
+venv2/
+*.pyc
+__pycache__/
+
+# Django Configuration Secrets
+.env
+
+# Local Databases (SQLite)
+db.sqlite3
+
+# Uploaded Files (Tusipandishe mafile ya test GitHub)
+media/
+staticfiles/
