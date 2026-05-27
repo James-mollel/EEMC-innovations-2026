@@ -114,6 +114,9 @@ STORAGES = {
 }
 
 
+STATICFILES_STORAGE = "whitenoise.storage.CompressedStaticFilesStorage"
+
+
 
 
 # Database
