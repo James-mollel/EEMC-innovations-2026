@@ -87,6 +87,7 @@ CLOUDINARY_STORAGE = {
 
 # WEKA HII CHINI KABISA KWENYE SETTINGS.PY YAKO
 
+
 STORAGES = {
     "default": {
         "BACKEND": "cloudinary_storage.storage.MediaCloudinaryStorage",
