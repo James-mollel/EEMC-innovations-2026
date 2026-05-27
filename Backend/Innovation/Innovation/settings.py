@@ -118,12 +118,13 @@ DATABASES = {
 
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173",
-     # Weka hapa link ile rasmi ya React uliyoiweka kwenye QR Code
+     "https://eemc-innovations-2026.vercel.app"
 ]
 
 
 CSRF_TRUSTED_ORIGINS = [
-    "https://eemc-innovations-2026-production.up.railway.app"
+    "https://eemc-innovations-2026-production.up.railway.app",
+    "https://eemc-innovations-2026.vercel.app/",
 ]
 
 
