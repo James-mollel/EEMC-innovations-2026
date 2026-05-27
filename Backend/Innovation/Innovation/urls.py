@@ -21,7 +21,7 @@ from django.conf.urls.static import static
 
 
 urlpatterns = [
-    path('secure-eemc-123-app/', admin.site.urls),
+    path( settings.ADMIN_URL , admin.site.urls),
     path("api/", include("UserData.urls"))
 ]
 

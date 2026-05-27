@@ -28,6 +28,8 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv('DEBUG', 'True') == 'True'
 
+ADMIN_URL = os.getenv("ADMIN_URL", "default-admin-path/")
+
 ALLOWED_HOSTS = [
     "127.0.0.1",
     "localhost",
