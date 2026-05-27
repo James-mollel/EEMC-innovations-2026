@@ -13,7 +13,7 @@ https://docs.djangoproject.com/en/6.0/ref/settings/
 from pathlib import Path
 import os
 from dotenv import load_dotenv
-import cloudinary
+
 
 
 
@@ -29,20 +29,13 @@ load_dotenv(os.path.join(BASE_DIR, '.env'))
 # SECURITY WARNING: keep the secret key used in production secret!
 
 
-cloudinary.config(
-    cloud_name=os.getenv('CLOUDINARY_CLOUD_NAME'),
-    api_key=os.getenv('CLOUDINARY_API_KEY'),
-    api_secret=os.getenv('CLOUDINARY_API_SECRET'),
-    secure=True  
-)
-
-
 SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv('DEBUG', 'True') == 'True'
 
 ADMIN_URL = os.getenv("ADMIN_URL", "default-admin-path/")
+
 
 ALLOWED_HOSTS = [
     "127.0.0.1",
@@ -60,7 +53,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
 
-    'cloudinary_storage',
+    'cloudinary_storage', 
     'django.contrib.staticfiles',
     'cloudinary',
 
@@ -91,6 +84,7 @@ CLOUDINARY_STORAGE = {
     'API_SECRET': os.getenv('CLOUDINARY_API_SECRET'),
 }
 
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
 
 
@@ -118,22 +112,6 @@ WSGI_APPLICATION = 'Innovation.wsgi.application'
 
 
 
-# Baada ya STORAGES dictionary yako
-STORAGES = {
-    "default": {
-        "BACKEND": "cloudinary_storage.storage.MediaCloudinaryStorage",
-    },
-    "staticfiles": {
-        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
-    },
-}
-
-# Ongeza hii chini – inaenda pamoja na Whitenoise
-STATICFILES_STORAGE = "whitenoise.storage.CompressedStaticFilesStorage"
-
-
-
-
 
 # Database
 # https://docs.djangoproject.com/en/6.0/ref/settings/#databases
@@ -158,7 +136,7 @@ CORS_ALLOWED_ORIGINS = [
 
 CSRF_TRUSTED_ORIGINS = [
     "https://eemc-innovations-2026-production.up.railway.app",
-    "https://eemc-innovations-2026.vercel.app/",
+    "https://eemc-innovations-2026.vercel.app",
 ]
 
 
@@ -201,12 +179,8 @@ USE_TZ = True
 
 STATIC_URL = "/static/"
 
-
-
-DISABLE_COLLECTSTATIC = 1
-
-# MEDIA_URL = '/media/'
-# MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 
 

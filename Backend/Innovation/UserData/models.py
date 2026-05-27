@@ -2,6 +2,7 @@ import uuid
 
 from django.db import models
 from uuid6 import uuid7
+from cloudinary.models import CloudinaryField
 
 
 # Create your models here.
@@ -25,7 +26,7 @@ class IdeasModel(models.Model):
         primary_key=True, 
         default=uuid7, 
         editable=False
-    )
+    ) 
 
     status = models.CharField(max_length=25, choices=STATUS, default='Pending')
     
@@ -53,11 +54,22 @@ class IdeasModel(models.Model):
     potential_market = models.TextField(blank=True, null=True, help_text="For Innovation idea is null/empty")
     expected_impact = models.TextField(blank=True, null=True, help_text="For Innovation idea is null/empty")
 
-    #5. supporting materials
-    document = models.FileField(upload_to="documents/", blank=True, null=True)
-    prototype_picture = models.ImageField(upload_to="prototypeImages/", blank=True, null=True)
-    diagram = models.ImageField(upload_to="diagrams/", blank=True, null=True)
 
+
+
+    document = CloudinaryField(
+        'document', 
+        blank=True, 
+        null=True, 
+        resource_type='raw',
+        help_text="Upload PDF or Word Documents"
+    )
+    
+    # Kwa picha, Cloudinary inatambua yenyewe automatic
+    prototype_picture = CloudinaryField('image', blank=True, null=True)
+    diagram = CloudinaryField('image', blank=True, null=True)
+
+ 
 
     current_step = models.IntegerField(default=1, help_text="User tracking steps ")
     is_complete = models.BooleanField(default=False, help_text="if user complete to fill a form or not")
