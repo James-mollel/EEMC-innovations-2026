@@ -122,6 +122,10 @@ CORS_ALLOWED_ORIGINS = [
 ]
 
 
+CSRF_TRUSTED_ORIGINS = [
+    "https://eemc-innovations-2026-production.up.railway.app"
+]
+
 
 
 # Password validation
