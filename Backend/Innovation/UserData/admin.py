@@ -7,6 +7,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.utils.html import format_html
 from .models import IdeasModel
+from django.conf import settings
 
 # --- Badilisha Kichwa cha Django Admin Kuwa EEMC DODOMA ---
 admin.site.site_header = "EEMC DODOMA Admin Portal"
@@ -61,7 +62,7 @@ export_ideas_to_csv.short_description = "📥 Export Selected Ideas to CSV (Exce
 # --- 3. Admin Registration ---
 @admin.register(IdeasModel)
 class AdminIdeas(admin.ModelAdmin):
-    list_display = ["full_name", "phone_number", "type_of_idea", "submission_id", "status", "created_at"]
+    list_display = ["full_name", "phone_number","email_address","institution_or_college","course_or_field_of_study", "type_of_idea","title_of_idea","problem_statement","solution_description","target_users","uniqueness_of_the_idea","implementation_plan", "estimated_cost_to_start","potential_market","expected_impact","submission_id", "status", "created_at"]
     list_filter = ["status", "type_of_idea", "created_at"]
     search_fields = ["submission_id", "title_of_idea", "full_name"]
     ordering = ["-created_at"]
@@ -107,15 +108,15 @@ class AdminIdeas(admin.ModelAdmin):
         }),
     )
 
-    # Logic ya Kutuma Email kutoka Django Admin
+
     def send_custom_email_action(self, request, queryset):
         if 'apply' in request.POST:
-            form = SendEmailForm(request.POST)
-            if form.is_valid():
-                subject = form.cleaned_data['subject']
-                message_template = form.cleaned_data['message']
-                email_count = 0
+            # Hapa tunapokea data baada ya mtu kubonyeza "Tuma Email Sasa"
+            subject = request.POST.get('subject')
+            message_template = request.POST.get('message')
+            email_count = 0
             
+            if subject and message_template:
                 for obj in queryset:
                     if obj.email_address:
                         personalized_message = f"Hello {obj.full_name},\n\n{message_template}"
@@ -123,27 +124,32 @@ class AdminIdeas(admin.ModelAdmin):
                             send_mail(
                                 subject=subject,
                                 message=personalized_message,
-                                from_email=None, 
+                                from_email=settings.DEFAULT_FROM_EMAIL, 
                                 recipient_list=[obj.email_address],
                                 fail_silently=False,
                             )
                             email_count += 1
                         except Exception as e:
-                            self.message_user(request, f"Fail to send email to {obj.email_address}: {str(e)}", messages.ERROR)
+                            # Hapa inaonyesha kosa kama SMTP ikifeli
+                            self.message_user(request, f"Failed to send email to {obj.email_address}: {str(e)}", messages.ERROR)
 
-                self.message_user(request, f"Email was successfully sent to {email_count} users!", messages.SUCCESS)
+                # FIXED: Ujumbe utaonekana sasa hivi
+                self.message_user(request, f"🎉 Email was successfully sent to {email_count} users!", messages.SUCCESS)
+                
+                # FIXED: Tunamrudisha mtumiaji kwenye list kuu ya Admin ili aone ujumbe
                 return HttpResponseRedirect(request.get_full_path())
         else:
-            form = SendEmailForm()
-            
-        return render(
-            request,
-            'admin/send_email_form.html',
-            context={
-                'objects': queryset,
-                'form': form,
-                'title': f"Send emails to {queryset.count()} users"
-            }
-        )
+            # Hapa ndio mara ya kwanza admin anachagua herufi na kubonyeza "Go"
+            # Tunawapeleka kwenye ile page yako ya HTML ya fomu
+            return render(
+                request,
+                'admin/send_email_form.html',
+                context={
+                    'objects': queryset,
+                    'title': f"Send emails to {queryset.count()} users",
+                    # Tunapitisha action_checkbox_name ili Django ijue ID za watu tuliowachagua
+                    'action_checkbox_name': admin.helpers.ACTION_CHECKBOX_NAME, 
+                }
+            )
     
     send_custom_email_action.short_description = "✉️ Send customized email to selected candidates"
