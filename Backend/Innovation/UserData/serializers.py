@@ -27,9 +27,6 @@ class InnovationIdeasSerializer(serializers.ModelSerializer):
             "expected_impact",
 
 
-            "document", "prototype_picture", "diagram",
-
-
             "current_step", "is_complete", "submission_id"
         )
 
@@ -105,13 +102,5 @@ class InnovationIdeasSerializer(serializers.ModelSerializer):
             if not expected_impact:
                 raise serializers.ValidationError({"expected_impact": "Please enter an expected impact."})
 
-        # Section 5: Supporting Materials 
-        is_complete = attrs.get("is_complete", instance.is_complete if instance else False)
-
-
-        if is_complete == True or str(is_complete).lower() == 'true':
-            document = attrs.get("document", instance.document if instance else None)
-            if not document:
-                raise serializers.ValidationError({"document": "Please upload at least one document to complete submission."})
-
+     
         return attrs 
