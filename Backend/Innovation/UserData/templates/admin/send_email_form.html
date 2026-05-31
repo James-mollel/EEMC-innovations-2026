@@ -1,0 +1,51 @@
+{% extends "admin/base_site.html" %}
+{% load i18n admin_urls %}
+
+{% block content %}
+<div id="content-main">
+    <div style="background-color: #79aec8; padding: 15px; color: white; border-radius: 4px; margin-bottom: 20px;">
+        <h2 style="margin: 0; color: white;">EEMC DODOMA - Bulk Email Panel</h2>
+        <p style="margin: 5px 0 0 0; font-size: 13px;">Unaenda kutuma barua pepe maalum kwenda kwa waombaji waliochaguliwa.</p>
+    </div>
+
+    <p><strong>Orodha ya Walengwa wanaoenda kupokea email hii (Idadi: {{ objects.count }}):</strong></p>
+    <ul style="max-height: 150px; overflow-y: auto; background: #f8f8f8; padding: 10px 25px; border: 1px solid #ddd; border-radius: 4px;">
+        {% for obj in objects %}
+            <li>{{ obj.full_name }} ({{ obj.email_address }}) — <span style="color: #666; font-style: italic;">{{ obj.get_status_display }}</span></li>
+        {% endfor %}
+    </ul>
+
+    <hr style="margin: 20px 0; border: 0; border-top: 1px solid #ccc;">
+
+    <form action="" method="post">
+        {% csrf_token %}
+        
+        {% for hidden in form.hidden_fields %}
+            {{ hidden }}
+        {% endfor %}
+        
+        <div style="margin-bottom: 15px;">
+            <label style="display: block; font-weight: bold; margin-bottom: 5px;">Somo la Email (Subject):</label>
+            {{ form.subject }}
+        </div>
+
+        <div style="margin-bottom: 15px;">
+            <label style="display: block; font-weight: bold; margin-bottom: 5px;">Ujumbe Wenyewe (Message Body):</label>
+            <p style="color: #666; font-size: 11px; margin: 0 0 5px 0;">* Mfumo utaongeza moja kwa moja neno: <strong>"Hello [Jina la Mtu],"</strong> mwanzoni mwa ujumbe wake.</p>
+            {{ form.message }}
+        </div>
+
+        {% for obj in objects %}
+            <input type="hidden" name="{{ action_checkbox_name }}" value="{{ obj.pk }}" />
+        {% endfor %}
+        
+        <input type="hidden" name="action" value="send_custom_email_action" />
+        <input type="hidden" name="apply" value="True" />
+        
+        <div class="submit-row" style="background: #f8f8f8; padding: 10px; border: 1px solid #ddd; border-radius: 4px; display: flex; gap: 10px; align-items: center;">
+            <input type="submit" value="Tuma Email Sasa" class="default" style="background: #417690; color: white; padding: 10px 20px; border: none; cursor: pointer; font-weight: bold;" />
+            <a href="#" onclick="window.history.back(); return false;" class="button cancel-link" style="padding: 10px 15px; background: #ddd; color: #333; text-decoration: none; border-radius: 4px; font-size: 13px;">Ghairi</a>
+        </div>
+    </form>
+</div>
+{% endblock %}

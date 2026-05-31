@@ -402,6 +402,13 @@ export default function IdeaFormStepThreePage({ onNext, ideaId, typeOfIdea }) {
       return;
     }
 
+    
+    const activeIdeaId = ideaId || localStorage.getItem('current_idea_id');
+    if (!activeIdeaId) {
+      toast.error("❌ Session expired. Please start from step one.");
+      return;
+    }
+
     setLoading(true);
     try {
        const nextStepSend = typeOfIdea === "Innovation" ? 5 : 3
@@ -416,8 +423,8 @@ export default function IdeaFormStepThreePage({ onNext, ideaId, typeOfIdea }) {
         is_complete: false
       };
 
-      // FIXED: Tunatumia 'ideaId' sahihi inayotoka kwenye prop
-      await api.patch(`update/idea/${ideaId}/`, payload);
+
+      await api.patch(`update/idea/${activeIdeaId}/`, payload);
       
       toast.success("🎉 Project pitch saved successfully!");
       onNext();

@@ -154,7 +154,7 @@ const FORM_STEPS = [
 ];
 
 export default function MainStepRenderFormPage() {
-  const [currentStep, setCurrentStep] = useState(1);
+  const [currentStep, setCurrentStep] = useState(5);
   const totalSteps = FORM_STEPS.length;
 
   const [ideaId, setIdeaId] = useState(null);
@@ -211,7 +211,7 @@ export default function MainStepRenderFormPage() {
           {/* Core Branding */}
           <div className="space-y-1.5">
             <h1 className="text-3xl font-semibold tracking-tight text-slate-900">
-              EEMC <span className="bg-gradient-to-b from-emerald-600 to-teal-600 bg-clip-text text-transparent font-bold">UDOM</span>
+              EEMC <span className="bg-gradient-to-b from-emerald-600 to-teal-600 bg-clip-text text-transparent font-bold">DODOMA</span>
             </h1>
             <p className="text-xs font-semibold tracking-wide text-emerald-700 bg-emerald-50/80 border border-emerald-100/60 rounded-full py-1 px-3 inline-block shadow-inner">
               Innovations & Business Ideas Competition 2026

@@ -86,15 +86,17 @@ export default function IdeaFormStepOnePage({ onNext, ideaId }) {
       formData.append("current_step",1)
       formData.append("is_complete", false)
 
-      let nextId = ideaId;
+      let nextId = ideaId || localStorage.getItem('current_idea_id');
 
-      if (ideaId) {
-        await api.patch(`update/idea/${ideaId}/`, formData);
+      if (nextId) {
+        await api.patch(`update/idea/${nextId}/`, formData);
         toast.success("🎉 Personal details updated successfully!");
       } else {
         const response = await api.post("create/idea/", formData);
         nextId = response.data.id; 
         toast.success("🎉 Step one saved successfully!");
+        // Kwenye Step 1 baada ya kufanya POST kwa mafanikio:
+        localStorage.setItem('current_idea_id', nextId);
       }
       
       onNext(nextId);

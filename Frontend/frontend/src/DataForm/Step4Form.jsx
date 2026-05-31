@@ -45,6 +45,12 @@ export default function IdeaFormStepFourPage({ onNext, ideaId }) {
       return;
     }
 
+    const activeIdeaId = ideaId || localStorage.getItem('current_idea_id');
+    if (!activeIdeaId) {
+      toast.error("❌ Session expired. Please start from step one.");
+      return;
+    }
+
     setLoading(true);
     try {
       // FIXED: Tumebadilisha kutoka FormData kwenda Plain JSON Object kwa ajili ya usalama wa DRF
@@ -56,7 +62,8 @@ export default function IdeaFormStepFourPage({ onNext, ideaId }) {
         is_complete: false
       };
 
-      await api.patch(`update/idea/${ideaId}/`, payload);
+
+      await api.patch(`update/idea/${activeIdeaId}/`, payload);
       
       toast.success("🎉 Financial metrics saved successfully!");
       onNext();

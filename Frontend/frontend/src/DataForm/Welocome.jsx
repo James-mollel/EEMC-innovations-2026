@@ -128,7 +128,7 @@ export default function WelcomeModal() {
           {/* Heading Structure */}
           <div className="space-y-2">
             <h1 className="text-3xl sm:text-4xl font-semibold text-slate-900 tracking-tight">
-              EEMC <span className="bg-gradient-to-b from-emerald-600 to-teal-600 bg-clip-text text-transparent font-bold">UDOM</span>
+              EEMC <span className="bg-gradient-to-b from-emerald-600 to-teal-600 bg-clip-text text-transparent font-bold">DODOMA</span>
             </h1>
             <p className="text-xs font-semibold tracking-wide text-emerald-700 bg-emerald-50 border border-emerald-100 rounded-lg py-1 px-2.5 inline-block">
               Innovations & Business Ideas Competition 2026
