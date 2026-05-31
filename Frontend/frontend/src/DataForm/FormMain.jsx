@@ -154,7 +154,7 @@ const FORM_STEPS = [
 ];
 
 export default function MainStepRenderFormPage() {
-  const [currentStep, setCurrentStep] = useState(5);
+  const [currentStep, setCurrentStep] = useState(1);
   const totalSteps = FORM_STEPS.length;
 
   const [ideaId, setIdeaId] = useState(null);
