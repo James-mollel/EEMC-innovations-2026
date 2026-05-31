@@ -16,7 +16,7 @@ class InnovationIdeaCreateStepOneViews(generics.CreateAPIView):
 
 
 # FOR OTHER STEPS
-class InnovationIdeaUpdateNextStepsView(generics.UpdateAPIView):
+class InnovationIdeaUpdateNextStepsView(generics.RetrieveUpdateAPIView):
     permission_classes = [AllowAny]
     queryset = IdeasModel.objects.all()
     serializer_class = InnovationIdeasSerializer
